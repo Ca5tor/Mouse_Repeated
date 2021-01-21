@@ -33,6 +33,8 @@ namespace MouseRepeated {
 			}
 		}
 	private: System::Windows::Forms::NotifyIcon^ notifyIcon1;
+	private: System::Windows::Forms::Button^ bt_exit;
+	private: System::Windows::Forms::Button^ bt_roll_up;
 
 	protected:
 
@@ -59,6 +61,8 @@ namespace MouseRepeated {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->notifyIcon1 = (gcnew System::Windows::Forms::NotifyIcon(this->components));
+			this->bt_exit = (gcnew System::Windows::Forms::Button());
+			this->bt_roll_up = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// notifyIcon1
@@ -67,12 +71,35 @@ namespace MouseRepeated {
 			this->notifyIcon1->Text = L"Mouse Repeated";
 			this->notifyIcon1->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::notifyIcon1_MouseDoubleClick);
 			// 
+			// bt_exit
+			// 
+			this->bt_exit->Location = System::Drawing::Point(13, 338);
+			this->bt_exit->Name = L"bt_exit";
+			this->bt_exit->Size = System::Drawing::Size(75, 49);
+			this->bt_exit->TabIndex = 0;
+			this->bt_exit->Text = L"Завершить работу";
+			this->bt_exit->UseVisualStyleBackColor = true;
+			this->bt_exit->Click += gcnew System::EventHandler(this, &MyForm::bt_exit_Click);
+			// 
+			// bt_roll_up
+			// 
+			this->bt_roll_up->Location = System::Drawing::Point(94, 338);
+			this->bt_roll_up->Name = L"bt_roll_up";
+			this->bt_roll_up->Size = System::Drawing::Size(72, 49);
+			this->bt_roll_up->TabIndex = 1;
+			this->bt_roll_up->Text = L"Свернуть в трей";
+			this->bt_roll_up->UseVisualStyleBackColor = true;
+			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(306, 254);
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
+			this->ClientSize = System::Drawing::Size(306, 399);
+			this->ControlBox = false;
+			this->Controls->Add(this->bt_roll_up);
+			this->Controls->Add(this->bt_exit);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
+			this->MaximizeBox = false;
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Mouse Repeated";
@@ -94,9 +121,13 @@ namespace MouseRepeated {
 		}
 
 		// Уведомление что программа свернулась в трей
-		notifyIcon1->BalloonTipTitle = "Программа была спрятана";
+		notifyIcon1->BalloonTipTitle = "Mouse Repeated";
 		notifyIcon1->BalloonTipText = "Я спрятана в трей и продолжу свою работу.";
-		notifyIcon1->ShowBalloonTip(3000);
+		notifyIcon1->ShowBalloonTip(1000);
+	}
+
+	private: System::Void bt_exit_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
 	}
 
 };
