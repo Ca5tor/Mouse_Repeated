@@ -10,7 +10,7 @@ namespace MouseRepeated {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Сводка для MyForm
+	/// Г‘ГўГ®Г¤ГЄГ  Г¤Г«Гї MyForm
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -23,7 +23,7 @@ namespace MouseRepeated {
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// ГЋГ±ГўГ®ГЎГ®Г¤ГЁГІГј ГўГ±ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГ¬Г»ГҐ Г°ГҐГ±ГіГ°Г±Г».
 		/// </summary>
 		~MyForm()
 		{
@@ -47,14 +47,14 @@ namespace MouseRepeated {
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// ГЋГЎГїГ§Г ГІГҐГ«ГјГ­Г Гї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°Г .
 		/// </summary>
 
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// Г’Г°ГҐГЎГіГҐГ¬Г»Г© Г¬ГҐГІГ®Г¤ Г¤Г«Гї ГЇГ®Г¤Г¤ГҐГ°Г¦ГЄГЁ ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°Г  вЂ” Г­ГҐ ГЁГ§Г¬ГҐГ­ГїГ©ГІГҐ 
+		/// Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГҐ ГЅГІГ®ГЈГ® Г¬ГҐГІГ®Г¤Г  Г± ГЇГ®Г¬Г®Г№ГјГѕ Г°ГҐГ¤Г ГЄГІГ®Г°Г  ГЄГ®Г¤Г .
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -77,7 +77,7 @@ namespace MouseRepeated {
 			this->bt_exit->Name = L"bt_exit";
 			this->bt_exit->Size = System::Drawing::Size(75, 49);
 			this->bt_exit->TabIndex = 0;
-			this->bt_exit->Text = L"Завершить работу";
+			this->bt_exit->Text = L"Г‡Г ГўГҐГ°ГёГЁГІГј Г°Г ГЎГ®ГІГі";
 			this->bt_exit->UseVisualStyleBackColor = true;
 			this->bt_exit->Click += gcnew System::EventHandler(this, &MyForm::bt_exit_Click);
 			// 
@@ -87,7 +87,7 @@ namespace MouseRepeated {
 			this->bt_roll_up->Name = L"bt_roll_up";
 			this->bt_roll_up->Size = System::Drawing::Size(72, 49);
 			this->bt_roll_up->TabIndex = 1;
-			this->bt_roll_up->Text = L"Свернуть в трей";
+			this->bt_roll_up->Text = L"Г‘ГўГҐГ°Г­ГіГІГј Гў ГІГ°ГҐГ©";
 			this->bt_roll_up->UseVisualStyleBackColor = true;
 			// 
 			// MyForm
@@ -109,25 +109,25 @@ namespace MouseRepeated {
 		}
 #pragma endregion
 	private: System::Void notifyIcon1_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-		notifyIcon1->Visible = false;			// Делаем нашу иконку скрытой
-		this->ShowInTaskbar = true;				// Возвращаем отображение окна в панели
-		WindowState = FormWindowState::Normal;	// Разворачиваем окно
+		notifyIcon1->Visible = false;			// Р”РµР»Р°РµРј РЅР°С€Сѓ РёРєРѕРЅРєСѓ СЃРєСЂС‹С‚РѕР№
+		this->ShowInTaskbar = true;			// Р’РѕР·РІСЂР°С‰Р°РµРј РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РѕРєРЅР° РІ РїР°РЅРµР»Рё
+		WindowState = FormWindowState::Normal;		// Р Р°Р·РІРѕСЂР°С‡РёРІР°РµРј РѕРєРЅРѕ
 	}
 
 	private: System::Void MyForm_Resize(System::Object^ sender, System::EventArgs^ e) {
 		if (this->WindowState == FormWindowState::Minimized) {
-			this->ShowInTaskbar = false;		// Прячем наше окно из панели
-			notifyIcon1->Visible = true;		// Делаем нашу иконку в трее активной
+			this->ShowInTaskbar = false;		// РџСЂСЏС‡РµРј РЅР°С€Рµ РѕРєРЅРѕ РёР· РїР°РЅРµР»Рё
+			notifyIcon1->Visible = true;		// Р”РµР»Р°РµРј РЅР°С€Сѓ РёРєРѕРЅРєСѓ РІ С‚СЂРµРµ Р°РєС‚РёРІРЅРѕР№
 		}
 
-		// Уведомление что программа свернулась в трей
+		// РЈРІРµРґРѕРјР»РµРЅРёРµ С‡С‚Рѕ РїСЂРѕРіСЂР°РјРјР° СЃРІРµСЂРЅСѓР»Р°СЃСЊ РІ С‚СЂРµР№
 		notifyIcon1->BalloonTipTitle = "Mouse Repeated";
-		notifyIcon1->BalloonTipText = "Я спрятана в трей и продолжу свою работу.";
+		notifyIcon1->BalloonTipText = "Гџ Г±ГЇГ°ГїГІГ Г­Г  Гў ГІГ°ГҐГ© ГЁ ГЇГ°Г®Г¤Г®Г«Г¦Гі Г±ГўГ®Гѕ Г°Г ГЎГ®ГІГі.";
 		notifyIcon1->ShowBalloonTip(1000);
 	}
 
 	private: System::Void bt_exit_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->Close();
+		this->Close();					// Р—Р°РІРµСЂС€РµРЅРёСЏ СЂР°Р±РѕС‚С‹ РїСЂРѕРіСЂР°РјРјС‹
 	}
 
 };
