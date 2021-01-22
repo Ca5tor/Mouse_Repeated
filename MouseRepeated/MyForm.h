@@ -35,6 +35,9 @@ namespace MouseRepeated {
 	private: System::Windows::Forms::NotifyIcon^ notifyIcon1;
 	private: System::Windows::Forms::Button^ bt_exit;
 	private: System::Windows::Forms::Button^ bt_roll_up;
+	private: System::Windows::Forms::ContextMenuStrip^ contextMenuStrip1;
+	private: System::Windows::Forms::ToolStripMenuItem^ íàñòğîéêèToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ âûõîäToolStripMenuItem;
 
 	protected:
 
@@ -61,15 +64,48 @@ namespace MouseRepeated {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->notifyIcon1 = (gcnew System::Windows::Forms::NotifyIcon(this->components));
+			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
+			this->íàñòğîéêèToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->âûõîäToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->bt_exit = (gcnew System::Windows::Forms::Button());
 			this->bt_roll_up = (gcnew System::Windows::Forms::Button());
+			this->contextMenuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// notifyIcon1
 			// 
+			this->notifyIcon1->ContextMenuStrip = this->contextMenuStrip1;
 			this->notifyIcon1->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"notifyIcon1.Icon")));
 			this->notifyIcon1->Text = L"Mouse Repeated";
 			this->notifyIcon1->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::notifyIcon1_MouseDoubleClick);
+			// 
+			// contextMenuStrip1
+			// 
+			this->contextMenuStrip1->BackColor = System::Drawing::Color::Transparent;
+			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->íàñòğîéêèToolStripMenuItem,
+					this->âûõîäToolStripMenuItem
+			});
+			this->contextMenuStrip1->Name = L"contextMenuStrip1";
+			this->contextMenuStrip1->Size = System::Drawing::Size(181, 70);
+			// 
+			// íàñòğîéêèToolStripMenuItem
+			// 
+			this->íàñòğîéêèToolStripMenuItem->BackColor = System::Drawing::Color::DimGray;
+			this->íàñòğîéêèToolStripMenuItem->ForeColor = System::Drawing::Color::White;
+			this->íàñòğîéêèToolStripMenuItem->Name = L"íàñòğîéêèToolStripMenuItem";
+			this->íàñòğîéêèToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->íàñòğîéêèToolStripMenuItem->Text = L"Íàñòğîéêè";
+			this->íàñòğîéêèToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::íàñòğîéêèToolStripMenuItem_Click);
+			// 
+			// âûõîäToolStripMenuItem
+			// 
+			this->âûõîäToolStripMenuItem->BackColor = System::Drawing::Color::DimGray;
+			this->âûõîäToolStripMenuItem->ForeColor = System::Drawing::Color::White;
+			this->âûõîäToolStripMenuItem->Name = L"âûõîäToolStripMenuItem";
+			this->âûõîäToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->âûõîäToolStripMenuItem->Text = L"Âûõîä";
+			this->âûõîäToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::âûõîäToolStripMenuItem_Click);
 			// 
 			// bt_exit
 			// 
@@ -89,6 +125,7 @@ namespace MouseRepeated {
 			this->bt_roll_up->TabIndex = 1;
 			this->bt_roll_up->Text = L"Ñâåğíóòü â òğåé";
 			this->bt_roll_up->UseVisualStyleBackColor = true;
+			this->bt_roll_up->Click += gcnew System::EventHandler(this, &MyForm::bt_roll_up_Click);
 			// 
 			// MyForm
 			// 
@@ -104,14 +141,20 @@ namespace MouseRepeated {
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Mouse Repeated";
 			this->Resize += gcnew System::EventHandler(this, &MyForm::MyForm_Resize);
+			this->contextMenuStrip1->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
+
+		void open_form() {
+			notifyIcon1->Visible = false;			// Äåëàåì íàøó èêîíêó ñêğûòîé
+			this->ShowInTaskbar = true;				// Âîçâğàùàåì îòîáğàæåíèå îêíà â ïàíåëè
+			WindowState = FormWindowState::Normal;	// Ğàçâîğà÷èâàåì îêíî
+		}
+
 	private: System::Void notifyIcon1_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-		notifyIcon1->Visible = false;			// Äåëàåì íàøó èêîíêó ñêğûòîé
-		this->ShowInTaskbar = true;				// Âîçâğàùàåì îòîáğàæåíèå îêíà â ïàíåëè
-		WindowState = FormWindowState::Normal;	// Ğàçâîğà÷èâàåì îêíî
+		open_form();
 	}
 
 	private: System::Void MyForm_Resize(System::Object^ sender, System::EventArgs^ e) {
@@ -126,10 +169,24 @@ namespace MouseRepeated {
 		notifyIcon1->ShowBalloonTip(1000);
 	}
 
+/////////////////		Êíîïêè		/////////////////
 	private: System::Void bt_exit_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
 
+	private: System::Void bt_roll_up_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->WindowState = FormWindowState::Minimized; // Ñâàğà÷èâàåì ôîğìó
+	}
+	
+/////////////////	Ïàíåëü ìåíş äëÿ çíà÷êà â òğåå	/////////////////
+	private: System::Void âûõîäToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+	}
+
+	private: System::Void íàñòğîéêèToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		open_form();
+	}
+///////////////////////////////////////////////////////////////
+
 };
-/////////////////////////////////////////////////////////
 }
