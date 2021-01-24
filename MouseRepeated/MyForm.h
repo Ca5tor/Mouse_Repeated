@@ -46,6 +46,11 @@ namespace MouseRepeated {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::GroupBox^ groupBox1;
+
+
+
+
 
 	protected:
 
@@ -85,7 +90,9 @@ namespace MouseRepeated {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->contextMenuStrip1->SuspendLayout();
+			this->groupBox1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// notifyIcon1
@@ -157,6 +164,7 @@ namespace MouseRepeated {
 			this->checkBox1->TabIndex = 2;
 			this->checkBox1->Text = L"Копировать";
 			this->checkBox1->UseVisualStyleBackColor = true;
+			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &MyForm::checkBox_CheckedChanged);
 			// 
 			// checkBox2
 			// 
@@ -168,6 +176,7 @@ namespace MouseRepeated {
 			this->checkBox2->TabIndex = 3;
 			this->checkBox2->Text = L"Вставить";
 			this->checkBox2->UseVisualStyleBackColor = true;
+			this->checkBox2->CheckedChanged += gcnew System::EventHandler(this, &MyForm::checkBox_CheckedChanged);
 			// 
 			// checkBox3
 			// 
@@ -179,6 +188,7 @@ namespace MouseRepeated {
 			this->checkBox3->TabIndex = 4;
 			this->checkBox3->Text = L"Вырезать";
 			this->checkBox3->UseVisualStyleBackColor = true;
+			this->checkBox3->CheckedChanged += gcnew System::EventHandler(this, &MyForm::checkBox_CheckedChanged);
 			// 
 			// comboBox1
 			// 
@@ -219,7 +229,7 @@ namespace MouseRepeated {
 			this->label3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label3->ForeColor = System::Drawing::Color::White;
-			this->label3->Location = System::Drawing::Point(53, 9);
+			this->label3->Location = System::Drawing::Point(41, 16);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(75, 17);
 			this->label3->TabIndex = 8;
@@ -236,6 +246,17 @@ namespace MouseRepeated {
 			this->button1->Text = L"Сохранить настройки";
 			this->button1->UseVisualStyleBackColor = false;
 			// 
+			// groupBox1
+			// 
+			this->groupBox1->BackColor = System::Drawing::Color::DimGray;
+			this->groupBox1->Controls->Add(this->label3);
+			this->groupBox1->ForeColor = System::Drawing::SystemColors::ControlText;
+			this->groupBox1->Location = System::Drawing::Point(12, -1);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(170, 43);
+			this->groupBox1->TabIndex = 10;
+			this->groupBox1->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
@@ -243,7 +264,6 @@ namespace MouseRepeated {
 			this->ClientSize = System::Drawing::Size(194, 348);
 			this->ControlBox = false;
 			this->Controls->Add(this->button1);
-			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->comboBox1);
@@ -252,6 +272,7 @@ namespace MouseRepeated {
 			this->Controls->Add(this->checkBox1);
 			this->Controls->Add(this->bt_roll_up);
 			this->Controls->Add(this->bt_exit);
+			this->Controls->Add(this->groupBox1);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
@@ -261,6 +282,8 @@ namespace MouseRepeated {
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->Resize += gcnew System::EventHandler(this, &MyForm::MyForm_Resize);
 			this->contextMenuStrip1->ResumeLayout(false);
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -315,6 +338,28 @@ namespace MouseRepeated {
 private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	this->WindowState = FormWindowState::Minimized; // Сварачиваем форму
 	hide_form();
+}
+
+private: System::Void checkBox_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	System::Windows::Forms::ContextMenuStrip^ context =
+		gcnew System::Windows::Forms::ContextMenuStrip;
+
+	if (checkBox1->Checked == true) {
+		ToolStripMenuItem^ mnuCopy = gcnew ToolStripMenuItem(L"Копировать");
+		context->Items->Add(mnuCopy);
+	}
+
+	if (checkBox2->Checked == true) {
+		ToolStripMenuItem^ mnuPaste = gcnew ToolStripMenuItem(L"Вставить");
+		context->Items->Add(mnuPaste);
+	}
+
+	if (checkBox3->Checked == true) {
+		ToolStripMenuItem^ mnuCut = gcnew ToolStripMenuItem(L"Вырезать");
+		context->Items->Add(mnuCut);
+	}
+
+	ContextMenuStrip = context;
 }
 
 };
